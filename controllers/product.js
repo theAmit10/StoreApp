@@ -27,15 +27,15 @@ export const getAllProducts = asyncError(async (req, res, next) => {
 export const getAdminProducts = asyncError(async (req, res, next) => {
   // Search & Category query
 
-  const product = await Product.find({}).populate("category");
+  const products = await Product.find({}).populate("category");
 
-  const outOfStock = product.filter((i) => i.stock === 0);
+  const outOfStock = products.filter((i) => i.stock === 0);
 
   res.status(200).json({
     success: true,
-    product,
+    products,
     outOfStock: outOfStock,
-    inStock: product.length - outOfStock.length,
+    inStock: products.length - outOfStock.length,
   });
 });
 
